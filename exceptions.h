@@ -4,39 +4,25 @@
 #include <exception>
 #include <string>
 
-// Базовое исключение для всех ошибок фигур
 class ShapeException : public std::exception {
 protected:
     std::string message;
 
 public:
-    explicit ShapeException(const std::string& msg)
-        : message(msg)
-    {
-    }
-
-    const char* what() const noexcept override {
-        return message.c_str();
-    }
+    ShapeException(const std::string& msg);
+    const char* what() const noexcept override;
 };
 
-// Неверные параметры фигуры
+// неверные параметры фигуры тип радиус меньше 0
 class InvalidFigureException : public ShapeException {
 public:
-    explicit InvalidFigureException(const std::string& msg)
-        : ShapeException(msg)
-    {
-    }
+    InvalidFigureException(const std::string& msg);
 };
 
-// Вырожденная фигура (например, точки на одной линии)
+// вырожденная фигура
 class DegenerateFigureException : public ShapeException {
 public:
-    explicit DegenerateFigureException(const std::string& msg)
-        : ShapeException(msg)
-    {
-    }
+    DegenerateFigureException(const std::string& msg);
 };
 
 #endif
-

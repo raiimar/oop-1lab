@@ -5,15 +5,15 @@
 #include <vector>
 #include <memory>
 
-class Commands {
+class Commands { //
 private:
     std::vector<std::shared_ptr<Shape>> shapes;
+    static bool comparePerimeter(const std::shared_ptr<Shape>& a, const std::shared_ptr<Shape>& b);
 
 public:
     Commands() = default;
 
     void addShape(const std::shared_ptr<Shape>& shape);
-
     const std::vector<std::shared_ptr<Shape>>& getShapes() const;
 
     double getTotalPerimeter() const;
@@ -21,7 +21,6 @@ public:
     void sortByPerimeter();
 
     void removeShapeByIndex(size_t index);
-
     void removeShapesWithPerimeterGreaterThan(double value);
 };
 

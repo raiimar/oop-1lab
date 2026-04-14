@@ -3,12 +3,10 @@
 
 #include <string>
 
-class Input {
+class Input { //
 public:
-    static int readInt();
-
-    static double readDouble();
-
+    static bool readInt(int& value);
+    static bool readDouble(double& value);
     static std::string readString();
 };
 
