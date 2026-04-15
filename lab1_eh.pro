@@ -5,7 +5,6 @@ CONFIG -= qt
 
 SOURCES += \
         circle.cpp \
-        commands.cpp \
         exceptions.cpp \
         input.cpp \
         main.cpp \
@@ -13,17 +12,20 @@ SOURCES += \
         output.cpp \
         point.cpp \
         rectangle.cpp \
+        shape_adder.cpp \
+        shape_manager.cpp \
         shape.cpp \
         triangle.cpp
 
 HEADERS += \
     circle.h \
-    commands.h \
     exceptions.h \
     input.h \
     menu.h \
     output.h \
     point.h \
     rectangle.h \
+    shape_adder.h \
+    shape_manager.h \
     shape.h \
     triangle.h
