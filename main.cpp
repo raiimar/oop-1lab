@@ -3,13 +3,15 @@
 #include "input.h"
 #include "output.h"
 #include "shape_adder.h"
+#include "shape_factory.h"
 
 int main() {
-    ShapeManager command;
+    ShapeManager shapeManager;
+    ShapeFactory shapeFactory;
     Input input;
     Output output;
-    ShapeAdder shapeAdder(command, input, output);
-    Menu menu(command, input, output, shapeAdder);
+    ShapeAdder shapeAdder(shapeManager, shapeFactory, input, output);
+    Menu menu(shapeManager, input, output, shapeAdder);
     menu.run();
     return 0;
 }

@@ -8,6 +8,9 @@ public:
     bool readInt(int& value);
     bool readDouble(double& value);
     std::string readString();
+
+private:
+    void clearInputStream();
 };
 
 #endif

@@ -12,6 +12,7 @@ SOURCES += \
         output.cpp \
         point.cpp \
         rectangle.cpp \
+        shape_factory.cpp \
         shape_adder.cpp \
         shape_manager.cpp \
         shape.cpp \
@@ -25,6 +26,7 @@ HEADERS += \
     output.h \
     point.h \
     rectangle.h \
+    shape_factory.h \
     shape_adder.h \
     shape_manager.h \
     shape.h \

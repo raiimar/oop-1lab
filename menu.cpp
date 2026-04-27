@@ -6,47 +6,53 @@
 #include <map>
 #include <string>
 
-Menu::Menu(ShapeManager& command, Input& input, Output& output, ShapeAdder& shapeAdder)
-    : command(command), input(input), output(output), shapeAdder(shapeAdder) {
+Menu::Menu(ShapeManager& shapeManager, Input& input, Output& output, ShapeAdder& shapeAdder)
+    : shapeManager(shapeManager), input(input), output(output), shapeAdder(shapeAdder) {
 }
 
 void Menu::handlePrintShapes() {
-    output.printShapes(command.getShapes());
+    output.printShapes(shapeManager.getShapes());
 }
 
 void Menu::handlePrintShapesWithPerimeter() {
-    output.printShapesWithPerimeter(command.getShapes());
+    output.printShapesWithPerimeter(shapeManager.getShapes());
 }
 
 void Menu::handlePrintTotalPerimeter() {
-    output.printTotalPerimeter(command.getTotalPerimeter());
+    output.printTotalPerimeter(shapeManager.getTotalPerimeter());
 }
 
 void Menu::handleSortPerimeters() {
-    command.sortByPerimeter();
+    shapeManager.sortByPerimeter();
     output.printMessage("По чину стало");
 }
 
 void Menu::handleRemoveByIndex() {
     output.printMessage("Впиши номеръ:");
     int index = 0;
-    if (!input.readInt(index)) {
+    bool isReadSuccess = input.readInt(index);
+
+    if (!isReadSuccess) {
         output.printMessage("Внемли: Подобаетъ число");
-        return;
     }
-    command.removeShapeByIndex(static_cast<size_t>(index));
-    output.printMessage("Изъято");
+    else {
+        shapeManager.removeShapeByIndex(static_cast<size_t>(index));
+        output.printMessage("Изъято");
+    }
 }
 
 void Menu::handleRemoveByPerimeter() {
     output.printMessage("Укажи значенїе:");
     double value = 0.0;
-    if (!input.readDouble(value)) {
+    bool isReadSuccess = input.readDouble(value);
+
+    if (!isReadSuccess) {
         output.printMessage("Внемли: Подобаетъ число");
-        return;
     }
-    command.removeShapesWithPerimeterGreaterThan(value);
-    output.printMessage("Изъято");
+    else {
+        shapeManager.removeShapesWithPerimeterGreaterThan(value);
+        output.printMessage("Изъято");
+    }
 }
 
 void Menu::handleAddShape() {
@@ -54,8 +60,8 @@ void Menu::handleAddShape() {
 }
 
 void Menu::run() {
-    static const int exitChoice = 0;
-    static const std::map<int, void (Menu::*)()> actionHandlers = {
+    const int exitChoice = 0;
+    const std::map<int, void (Menu::*)()> actionHandlers = {
         {1, &Menu::handleAddShape},
         {2, &Menu::handlePrintShapes},
         {3, &Menu::handlePrintShapesWithPerimeter},

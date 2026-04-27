@@ -1,14 +1,9 @@
 #include "shape_adder.h"
 
-#include "circle.h"
 #include "point.h"
-#include "rectangle.h"
-#include "triangle.h"
 
-#include <memory>
-
-ShapeAdder::ShapeAdder(ShapeManager& command, Input& input, Output& output)
-    : command(command), input(input), output(output) {
+ShapeAdder::ShapeAdder(ShapeManager& shapeManager, ShapeFactory& shapeFactory, Input& input, Output& output)
+    : shapeManager(shapeManager), shapeFactory(shapeFactory), input(input), output(output) {
 }
 
 void ShapeAdder::addCircle(const std::string& name) {
@@ -25,8 +20,8 @@ void ShapeAdder::addCircle(const std::string& name) {
             output.printMessage("Внемли: Подобаетъ число");
         }
         else {
-            std::shared_ptr<Circle> shape = std::make_shared<Circle>(name, Point{x, y}, r);
-            command.addShape(shape);
+            std::shared_ptr<Shape> shape = shapeFactory.createCircle(name, Point{x, y}, r);
+            shapeManager.addShape(shape);
         }
     }
 }
@@ -46,8 +41,8 @@ void ShapeAdder::addRectangle(const std::string& name) {
             output.printMessage("Внемли: Подобаетъ число");
         }
         else {
-            std::shared_ptr<Rectangle> shape = std::make_shared<Rectangle>(name, Point{x1, y1}, Point{x2, y2});
-            command.addShape(shape);
+            std::shared_ptr<Shape> shape = shapeFactory.createRectangle(name, Point{x1, y1}, Point{x2, y2});
+            shapeManager.addShape(shape);
         }
     }
 }
@@ -74,8 +69,8 @@ void ShapeAdder::addTriangle(const std::string& name) {
                 output.printMessage("Внемли: Подобаетъ число");
             }
             else {
-                std::shared_ptr<Triangle> shape = std::make_shared<Triangle>(name, Point{x1, y1}, Point{x2, y2}, Point{x3, y3});
-                command.addShape(shape);
+                std::shared_ptr<Shape> shape = shapeFactory.createTriangle(name, Point{x1, y1}, Point{x2, y2}, Point{x3, y3});
+                shapeManager.addShape(shape);
             }
         }
     }
@@ -85,26 +80,28 @@ void ShapeAdder::addShape() {
     output.printMessage("Избери образъ: 1-Кругъ, 2-Прямоугольникъ, 3-Треугольникъ");
 
     int type = 0;
-    if (
-        !input.readInt(type) ||
-        type > static_cast<int>(ShapeType::Triangle) ||
-        type < static_cast<int>(ShapeType::Circle)
-    ) {
+    bool isTypeValid = (
+        input.readInt(type) &&
+        type <= static_cast<int>(ShapeType::Triangle) &&
+        type >= static_cast<int>(ShapeType::Circle)
+    );
+
+    if (!isTypeValid) {
         output.printMessage("Внемли: Подобаетъ число 1, 2 иль 3");
-        return;
     }
+    else {
+        output.printMessage("Впиши имѧ:");
+        std::string name = input.readString();
+        ShapeType shapeType = static_cast<ShapeType>(type);
 
-    output.printMessage("Впиши имѧ:");
-    std::string name = input.readString();
-    ShapeType shapeType = static_cast<ShapeType>(type);
-
-    if (shapeType == ShapeType::Circle) {
-        addCircle(name);
-    }
-    else if (shapeType == ShapeType::Rectangle) {
-        addRectangle(name);
-    }
-    else if (shapeType == ShapeType::Triangle) {
-        addTriangle(name);
+        if (shapeType == ShapeType::Circle) {
+            addCircle(name);
+        }
+        else if (shapeType == ShapeType::Rectangle) {
+            addRectangle(name);
+        }
+        else if (shapeType == ShapeType::Triangle) {
+            addTriangle(name);
+        }
     }
 }

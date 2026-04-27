@@ -1,4 +1,4 @@
-#include "Point.h"
+#include "point.h"
 
 double Point::getX() const {
     return x;

@@ -8,7 +8,7 @@
 
 class Menu {
 private:
-    ShapeManager& command;
+    ShapeManager& shapeManager;
     Input& input;
     Output& output;
     ShapeAdder& shapeAdder;
@@ -21,7 +21,7 @@ private:
     void handleSortPerimeters();
 
 public:
-    Menu(ShapeManager& command, Input& input, Output& output, ShapeAdder& shapeAdder);
+    Menu(ShapeManager& shapeManager, Input& input, Output& output, ShapeAdder& shapeAdder);
     void run();
 };
 

@@ -2,6 +2,7 @@
 #define SHAPE_ADDER_H
 
 #include "shape_manager.h"
+#include "shape_factory.h"
 #include "input.h"
 #include "output.h"
 
@@ -15,7 +16,8 @@ private:
         Triangle = 3
     };
 
-    ShapeManager& command;
+    ShapeManager& shapeManager;
+    ShapeFactory& shapeFactory;
     Input& input;
     Output& output;
 
@@ -24,7 +26,7 @@ private:
     void addTriangle(const std::string& name);
 
 public:
-    ShapeAdder(ShapeManager& command, Input& input, Output& output);
+    ShapeAdder(ShapeManager& shapeManager, ShapeFactory& shapeFactory, Input& input, Output& output);
     void addShape();
 };
 
