@@ -16,8 +16,8 @@ double Circle::getPerimeter() const {
 std::string Circle::toString() const {
     return std::format( "Кругъ: имѧ={}, центръ=({}, {}), радіусъ={}",
         name,
-        center.getX(),
-        center.getY(),
+        center.x,
+        center.y,
         radius
     );
 }

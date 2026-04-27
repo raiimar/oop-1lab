@@ -5,13 +5,13 @@
 #include <cmath>
 
 Rectangle::Rectangle(const std::string& name, const Point& topLeft, const Point& bottomRight) : Shape(name), topLeft(topLeft), bottomRight(bottomRight) {
-    if (topLeft.getX() == bottomRight.getX() || topLeft.getY() == bottomRight.getY())
+    if (topLeft.x == bottomRight.x || topLeft.y == bottomRight.y)
         throw DegenerateFigureException("Прямоугольникъ вырожденъ");
 }
 
 double Rectangle::getPerimeter() const {
-    double width = std::abs(bottomRight.getX() - topLeft.getX());
-    double height = std::abs(topLeft.getY() - bottomRight.getY());
+    double width = std::abs(bottomRight.x - topLeft.x);
+    double height = std::abs(topLeft.y - bottomRight.y);
 
     return 2 * (width + height);
 }
@@ -19,9 +19,9 @@ double Rectangle::getPerimeter() const {
 std::string Rectangle::toString() const {
     return std::format( "Прямоугольникъ: имѧ={}, верхнѧѧ лѣваѧ точка=({}, {}), нижнѧѧ праваѧ точка=({}, {})",
         name,
-        topLeft.getX(),
-        topLeft.getY(),
-        bottomRight.getX(),
-        bottomRight.getY()
+        topLeft.x,
+        topLeft.y,
+        bottomRight.x,
+        bottomRight.y
     );
 }

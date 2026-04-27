@@ -54,8 +54,8 @@ void Menu::handleAddShape() {
 }
 
 void Menu::run() {
-    static const int exitChoice = 0;
-    static const std::map<int, void (Menu::*)()> actionHandlers = {
+    const int exitChoice = 0;
+    const std::map<int, void (Menu::*)()> actionHandlers = {
         {1, &Menu::handleAddShape},
         {2, &Menu::handlePrintShapes},
         {3, &Menu::handlePrintShapesWithPerimeter},

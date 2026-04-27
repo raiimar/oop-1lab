@@ -8,14 +8,14 @@
 #define half 0.5
 
 static double distance(const Point& p1, const Point& p2) {
-    double dx = p1.getX() - p2.getX();
-    double dy = p1.getY() - p2.getY();
+    double dx = p1.x - p2.x;
+    double dy = p1.y - p2.y;
 
     return std::sqrt(dx * dx + dy * dy);;
 }
 
 static double area(const Point& a, const Point& b, const Point& c) {
-    return half * std::abs(a.getX() * (b.getY() - c.getY()) + b.getX() * (c.getY() - a.getY()) + c.getX() * (a.getY() - b.getY()));
+    return half * std::abs(a.x * (b.x - c.x) + b.x * (c.y - a.y) + c.x * (a.y - b.y));
 }
 
 Triangle::Triangle(const std::string& name, const Point& a, const Point& b, const Point& c) : Shape(name), a(a), b(b), c(c) {
@@ -35,11 +35,11 @@ std::string Triangle::toString() const {
     return std::format(
         "Треугольникъ: имѧ={}, Азъ=({}, {}), Буки=({}, {}), Веди=({}, {})",
         name,
-        a.getX(),
-        a.getY(),
-        b.getX(),
-        b.getY(),
-        c.getX(),
-        c.getY()
+        a.x,
+        a.y,
+        b.x,
+        b.y,
+        c.x,
+        c.y
         );
 }

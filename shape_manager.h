@@ -6,7 +6,7 @@
 #include <memory>
 #include <vector>
 
-class ShapeManager { //
+class ShapeManager {
 private:
     std::vector<std::shared_ptr<Shape>> shapes;
 
